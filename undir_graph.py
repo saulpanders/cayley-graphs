@@ -1,14 +1,16 @@
-# Paul Sanders
-# 9/15/18
+# @saulpanders
+# undir_graph.py
 
 
 # OOP experiment and graphical graphs (lol)
 # created class Vertex and Graph (which contains verticies)
 # created input interface for .csv adj. matricies
 # simple graphing utility
+import argparse
 import numpy as np
 from graphics import *
 from math import *
+
 
 WIDTH = 500
 HEIGHT = 500
@@ -141,13 +143,23 @@ def displayGraph(graph):
 # main
 
 def main():
-    filename = ".\\g.csv"
+
+    parser = argparse.ArgumentParser(description='Graph drawing utility')
+    parser.add_argument('-i', '--input', type=str, help="Input file name (adjacency matrix in form of .csv)")
+    parser.add_argument('-v', '--verbose', action='store_true', help = "Enable verbose output", default=False)
+    args = parser.parse_args()
+
+
+
+    filename = args.input
     g = importGraph(filename)
     displayGraph(g)
-    print(g.adjacencyList())
+    if(args.verbose):
+        print(g.adjacencyList())
 
 
-main()
+if __name__ == "__main__":
+    main()
 
 ###########################################################################
 # the testing grounds
